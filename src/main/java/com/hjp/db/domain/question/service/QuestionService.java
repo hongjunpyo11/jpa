@@ -21,6 +21,8 @@ public class QuestionService {
                 .build();
         questionRepository.save(question1);
 
+        if (true) throw new RuntimeException();
+
         Question question2 = Question
                 .builder()
                 .subject(subject)
