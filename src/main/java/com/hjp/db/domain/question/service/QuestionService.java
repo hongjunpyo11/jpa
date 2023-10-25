@@ -14,14 +14,24 @@ public class QuestionService {
 
     @Transactional
     public Question write(String subject, String content) {
-        Question question1 = Question
+        Question question = Question
                 .builder()
                 .subject(subject)
                 .content(content)
                 .build();
-        questionRepository.save(question1);
 
-        if (true) throw new RuntimeException();
+        write2(subject, content);
+
+        return questionRepository.save(question);
+    }
+
+    @Transactional
+    Question write2(String subject, String content) {
+        Question question = Question
+                .builder()
+                .subject(subject)
+                .content(content)
+                .build();
 
         Question question2 = Question
                 .builder()
@@ -29,6 +39,8 @@ public class QuestionService {
                 .content(content)
                 .build();
 
-        return questionRepository.save(question2);
+        questionRepository.save(question2);
+
+        return questionRepository.save(question);
     }
 }
