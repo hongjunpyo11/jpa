@@ -3,6 +3,8 @@ package com.hjp.db.domain.question.service;
 import com.hjp.db.domain.question.entity.Question;
 import com.hjp.db.domain.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,23 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class QuestionService {
+
+    @Autowired
+    @Lazy
+    private QuestionService self;
     private final QuestionRepository questionRepository;
 
     @Transactional
     public Question write(String subject, String content) {
-        Question question = Question
-                .builder()
-                .subject(subject)
-                .content(content)
-                .build();
-
-        write2(subject, content);
-
-        return questionRepository.save(question);
+        return self.write2(subject, content);
     }
 
     @Transactional
-    Question write2(String subject, String content) {
+    public Question write2(String subject, String content) {
         Question question = Question
                 .builder()
                 .subject(subject)
