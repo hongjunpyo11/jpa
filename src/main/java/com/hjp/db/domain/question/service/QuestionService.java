@@ -35,7 +35,7 @@ public class QuestionService {
     }
 
     public void remove(Question question) {
-        answerService.findByQuestion(question).forEach(answer -> {
+        question.getAnswers().forEach(answer -> {
             answerService.remove(answer);
         });
 
