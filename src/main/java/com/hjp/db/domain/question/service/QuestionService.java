@@ -16,6 +16,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final AnswerService answerService;
 
     @Transactional
     public Question write(Member author, String subject, String content) {
@@ -31,6 +32,14 @@ public class QuestionService {
 
     public Optional<Question> findById(long id) {
         return questionRepository.findById(id);
+    }
+
+    public void remove(Question question) {
+        answerService.findByQuestion(question).forEach(answer -> {
+            answerService.remove(answer);
+        });
+
+        questionRepository.delete(question);
     }
 
 }
