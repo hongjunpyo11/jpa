@@ -1,5 +1,6 @@
 package com.hjp.db.domain.question.service;
 
+import com.hjp.db.domain.member.entity.Member;
 import com.hjp.db.domain.question.entity.Question;
 import com.hjp.db.domain.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,29 +15,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class QuestionService {
-    @Autowired
-    @Lazy
-    private QuestionService self;
-
     private final QuestionRepository questionRepository;
 
     @Transactional
-    public Question write(String subject, String content) {
+    public Question write(Member author, String subject, String content) {
         Question question = Question
                 .builder()
-                .subject(subject)
-                .content(content)
-                .build();
-
-        self.write2(subject, content);
-
-        return questionRepository.save(question);
-    }
-
-    @Transactional
-    public Question write2(String subject, String content) {
-        Question question = Question
-                .builder()
+                .author(author)
                 .subject(subject)
                 .content(content)
                 .build();
