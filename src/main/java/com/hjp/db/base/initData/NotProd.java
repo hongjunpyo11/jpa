@@ -2,9 +2,7 @@ package com.hjp.db.base.initData;
 
 import com.hjp.db.domain.member.entity.Member;
 import com.hjp.db.domain.member.service.MemberService;
-import com.hjp.db.domain.question.entity.Answer;
 import com.hjp.db.domain.question.entity.Question;
-import com.hjp.db.domain.question.service.AnswerService;
 import com.hjp.db.domain.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,6 @@ public class NotProd {
     private NotProd self;
     private final MemberService memberService;
     private final QuestionService questionService;
-    private final AnswerService answerService;
 
     @Bean
     public ApplicationRunner initData() {
@@ -45,17 +42,16 @@ public class NotProd {
         Question question3 = questionService.write(member2, "제목3", "내용3");
         Question question4 = questionService.write(member2, "제목4", "내용4");
 
-        Answer answer1 = answerService.write(member2, question1, "맞아요.");
-        Answer answer2 = answerService.write(member2, question2, "그런거 같아요.");
-        Answer answer3 = answerService.write(member1, question3, "ㅋㅋㅋ");
+        question1.writeAnswer(member2, "맞아요.");
+        question2.writeAnswer(member2, "그런거 같아요.");
+        question3.writeAnswer(member1, "ㅋㅋㅋ");
+
+        questionService.remove(question3);
+        questionService.remove(question4);
     }
 
     @Transactional
     public void work2() {
-        Question question3 = questionService.findById(3L).get();
-        Question question4 = questionService.findById(4L).get();
 
-        questionService.remove(question3);
-        questionService.remove(question4);
     }
 }
