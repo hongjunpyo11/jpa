@@ -3,10 +3,7 @@ package com.hjp.db.domain.question.entity;
 import com.hjp.db.base.jpa.BaseEntity;
 import com.hjp.db.domain.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Question extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Member author;

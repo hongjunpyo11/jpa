@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,10 @@ public class QuestionService {
     public void remove(Question question) {
 
         questionRepository.delete(question);
+    }
+
+    public List<Question> findAll() {
+        return questionRepository.findByOrderByIdDesc();
     }
 
 }
