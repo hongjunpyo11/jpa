@@ -23,6 +23,7 @@ public class Question extends BaseEntity {
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String content;
+    @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "question", cascade = {PERSIST, REMOVE}, orphanRemoval = true)
 
